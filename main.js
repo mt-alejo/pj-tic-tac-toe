@@ -1,13 +1,13 @@
 const gameBoard = [
-  { value: "" },
-  { value: "" },
-  { value: "" },
-  { value: "" },
-  { value: "" },
-  { value: "" },
-  { value: "" },
-  { value: "" },
-  { value: "" },
+  { value: "!" },
+  { value: "@" },
+  { value: "#" },
+  { value: "$" },
+  { value: "%" },
+  { value: "^" },
+  { value: "&" },
+  { value: "*" },
+  { value: "=" },
 ];
 function checkWinCombinations() {
   if (
@@ -53,16 +53,7 @@ function checkWinCombinations() {
   } else console.log("No one wins");
 }
 
-gameBoard[0].value = 0;
-gameBoard[1].value = 1;
-gameBoard[2].value = 0;
-gameBoard[3].value = 1;
-gameBoard[4].value = 0;
-gameBoard[5].value = 1;
-gameBoard[6].value = 0;
-gameBoard[7].value = 1;
-gameBoard[8].value = 1;
-checkWinCombinations();
+// checkWinCombinations();
 
 let turnOne = true;
 function markUP() {
@@ -70,15 +61,28 @@ function markUP() {
   if (turnOne) {
     this.innerHTML = "x";
     this.value = 1;
+    updateGameBoard(this.dataset.index, 1);
   } else {
     this.innerHTML = "0";
     this.value = 0;
+    updateGameBoard(this.dataset.index, 0);
   }
-  //Share private variables
-  checkBoxes(this);
+  checkWinCombinations();
 }
+
+function updateGameBoard(index, value) {
+  gameBoard[index].value = value;
+  // console.log(gameBoard);
+}
+
 function checkBoxes(box) {
   console.log(box.value);
 }
 const boxes = document.querySelectorAll(".game-box");
 boxes.forEach((box) => box.addEventListener("click", markUP));
+// for (let i = 0; i < boxes.length; i++) {
+//   const box = boxes[i];
+//   box.addEventListener("click", markUP);
+//   updateGameBoard(i)
+
+// }
