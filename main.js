@@ -9,6 +9,8 @@ const GameBoard = (() => {
       boardHTML += `<div class="game-box" id="box-${index}">${box}</div>`;
     });
     gameContainer.innerHTML = boardHTML;
+    const boxes = document.querySelectorAll(".game-box");
+    boxes.forEach((box) => box.addEventListener("click", Game.handleclick));
   };
 
   return { render };
@@ -28,8 +30,12 @@ const Game = (() => {
     gameOver = false;
     GameBoard.render();
   };
+  const handleclick = (event) => {
+    const [, id] = event.target.id.split("-");
+    console.log(id);
+  };
 
-  return { start };
+  return { start, handleclick };
 })();
 
 document.querySelector("#btn-start").addEventListener("click", () => {
