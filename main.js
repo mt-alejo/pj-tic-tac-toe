@@ -9,9 +9,17 @@ const GameBoard = (() => {
       boardHTML += `<div class="game-box" id="box-${index}">${box}</div>`;
     });
     gameContainer.innerHTML = boardHTML;
+    const boxes = document.querySelectorAll(".game-box");
+    boxes.forEach((box) => box.addEventListener("click", Game.handleclick));
   };
 
-  return { render };
+  const update = (index, mark) => {
+    gameboard[index] = mark;
+    console.log(index, mark);
+    render();
+  };
+
+  return { render, update };
 })();
 
 const createPlayer = (name, mark) => {
@@ -27,12 +35,11 @@ const Game = (() => {
     currentIndexPlayer = 0;
     gameOver = false;
     GameBoard.render();
-    const boxes = document.querySelectorAll(".game-box");
-    boxes.forEach((box) => box.addEventListener("click", handleclick));
   };
   const handleclick = (event) => {
-    const [, id] = event.target.id.split("-");
-    console.log(id);
+    const [, index] = event.target.id.split("-");
+    GameBoard.update(index, players[currentIndexPlayer].mark);
+    currentIndexPlayer = currentIndexPlayer === 0 ? 1 : 0;
   };
 
   return { start, handleclick };
