@@ -19,7 +19,9 @@ const GameBoard = (() => {
     render();
   };
 
-  return { render, update };
+  const getGameboard = () => gameboard;
+
+  return { render, update, getGameboard };
 })();
 
 const createPlayer = (name, mark) => {
@@ -38,6 +40,10 @@ const Game = (() => {
   };
   const handleclick = (event) => {
     const [, index] = event.target.id.split("-");
+
+    if (GameBoard.getGameboard()[index] !== "") {
+      return;
+    }
     GameBoard.update(index, players[currentIndexPlayer].mark);
     currentIndexPlayer = currentIndexPlayer === 0 ? 1 : 0;
   };
