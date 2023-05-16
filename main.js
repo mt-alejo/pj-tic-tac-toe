@@ -9,8 +9,6 @@ const GameBoard = (() => {
       boardHTML += `<div class="game-box" id="box-${index}">${box}</div>`;
     });
     gameContainer.innerHTML = boardHTML;
-    const boxes = document.querySelectorAll(".game-box");
-    boxes.forEach((box) => box.addEventListener("click", Game.handleclick));
   };
 
   return { render };
@@ -29,6 +27,8 @@ const Game = (() => {
     currentIndexPlayer = 0;
     gameOver = false;
     GameBoard.render();
+    const boxes = document.querySelectorAll(".game-box");
+    boxes.forEach((box) => box.addEventListener("click", handleclick));
   };
   const handleclick = (event) => {
     const [, id] = event.target.id.split("-");
