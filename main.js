@@ -86,12 +86,14 @@ function markUP() {
     if (this.value == 1 || this.value == 0) {
       this.removeEventListener("click", markUP);
     }
+  } else {
+    console.log("markUp not working");
   }
 }
 
 function updateGameBoard(index, value) {
   gameBoard[index].value = value;
-  // console.log(gameBoard);
+  console.log(gameBoard);
 }
 
 const boxes = document.querySelectorAll(".game-box");
@@ -113,8 +115,21 @@ function startGame() {
   !gameStarted ? (gameStarted = !gameStarted) : (gameStarted = false);
   if (gameStarted) {
     activeBoxes();
+    console.log("The game has started");
   } else {
     gameOver();
   }
 }
 startGame();
+
+function cleanGameBoard() {
+  boxes.forEach((box) => {
+    box.innerText = "";
+    box.value = "";
+  });
+  gameBoard.forEach((box) => {
+    let ramdom = Math.floor(Math.random() * (25 - 5)) + 5;
+    box.value = ramdom;
+  });
+  console.log(gameBoard);
+}
